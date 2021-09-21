@@ -764,6 +764,21 @@ as follows:
         register_signal<GDExample>((char *)"position_changed", args);
     }
 
+We want to connect that signal to our method in our example - the gdscript method
+''_on_Sprite_position_changed'' -. So we can set it in ''_ready'' method.
+
+.. tabs::
+.. code-tab:: C++ NativeScript 1.0
+
+void GDExample::_ready()
+{
+	connect("position_changed", get_parent(), "_on_Sprite_position_changed");
+}
+
+''this'' have to be changed to ''get_parent'' in our example.
+Do not forget to add ''_ready'' method to ''register_methods'' section and also in 
+''gdexample.h' file as ''void _ready();''.
+
 Here we see a nice improvement in the latest version of godot-cpp where our
 ``register_signal`` method can be a single call first taking the signals name,
 then having pairs of values specifying the parameter name and type of each
